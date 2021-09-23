@@ -10,7 +10,6 @@ var a2btn = document.createElement("button");
 var a3btn = document.createElement("button");
 var a4btn = document.createElement("button");
 var timer1 = document.createElement("time");
-var form1 = document.createElement("form");
 var listE1 = document.createElement("ol");
 var li1 = document.createElement("li");
 var li2 = document.createElement('li');
@@ -31,12 +30,12 @@ h1E1.setAttribute("style", "margin:auto; padding:2%; width:50%; text-align:cente
 h3E1.setAttribute("style", "margin:auto; padding:2%; width:50%; text-align:center;");
 btn1.setAttribute("style", "margin:auto 45%; display:block; background-color:purple; color:white; border-radius:8px; text-align:center;");
 // adding event listener to the start button
-// adding functionality 
+// adding functionality to start quiz when clicked
 btn1.addEventListener('click', function () {
     startQuiz();
 });
-let playerScore = 0; 
-let questionNumber = 0;
+var playerScore = 0;
+var questionNumber = 0; 
 
 // defining the quiz questions
 const questions = [
@@ -81,68 +80,97 @@ const questions = [
         correctAnswer: 'option4'
     }
 ];
-// logging out questions array
+
 console.log(questions);
 
 // after clicking the start button present question and start timer in the upper right hand corner of the screen 
 // appending elements to second page
 
+const endQuiz = () => {
 
+
+}
 // define the countdown
-// const countdown = () => {
-//     let timeLeft = 75;
-//     let timeInterval = setInterval(() => {
-//         timeLeft--;
-//         timer1.textContent = timeLeft;
-//         switch(timeLeft) {
-//             case (timeLeft === 0):
-//                 // end quiz
-//                 clearInterval(timeInterval);
-//                 break;
-//             default:
-//                 break;
-//         };
-//     }, 1000);
-// }
+const startCountdown = () => {
+    let timeInterval = setInterval(() => {
+        timeLeft--;
+        timer1.textContent ="Time left: " + timeLeft;
+        switch(timeLeft) {
+            case (timeLeft === 0):
+                endQuiz();
+                clearInterval(timeInterval);
+                break;
+            case (timeLeft < 0):
+                endQuiz();
+            default:
+                break;
+        };
+    }, 1000);
+}
 
 
-// console.log(questions.length);
-// randomize the defined questions above in a new array using switch method
 
-// console.log(randomizeQuestions());
-// const resetQuiz = () => {
-//     let questionsLeft = 
-//     countdown();
-// }
+
 const questionLayout = () => {
-    h1E1.textContent = '';
-    h3E1.textContent = '';
-    btn1.setAttribute("style", "display:none");
-    body.appendChild(header);
-    header.appendChild(highScores);
-    header.appendChild(timer1);
+    // body.appendChild(listE1);
 
     for (let i = 0; i <= 0; i++) {
         
         body.appendChild(listE1);
         listE1.setAttribute("style", "display:flex; flex-direction:column; justify-content:center; text-align:center; margin:25%, font-weight:bold, font-size: 24px;");
-        listE1.textContent = questions[i].question;
+        listE1.innerHTML = questions[i].question;
         listE1.appendChild(a1btn);
-        a1btn.textContent = questions[i].option1;
+        a1btn.innerHTML = questions[i].option1;
         a1btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
-        a1btn.addEventListener('click', function(){});
+        a1btn.setAttribute("id", "option1");
+        a1btn.addEventListener('click', function(){
+            if(questions[i].correctAnswer == 'option1') {
+                playerScore++; 
+                questionNumber++;
+            } else {
+                questionNumber++;
+                timeLeft -= 5;
+            }
+        });
         listE1.appendChild(a2btn);
-        a2btn.textContent = questions[i].option2;
+        a2btn.innerHTML = questions[i].option2;
         a2btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
-        a2btn.addEventListener('click', function(){});
+        a1btn.setAttribute("id", "option2");
+        a2btn.addEventListener('click', function(){
+            if(questions[i].correctAnswer == 'option2') {
+                playerScore++; 
+                questionNumber++;
+            } else {
+                questionNumber++;
+                timeLeft -= 5;
+            }
+        });
         listE1.appendChild(a3btn);
-        a3btn.textContent = questions[i].option3;
+        a3btn.innerHTML = questions[i].option3;
         a3btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
-        a3btn.addEventListener('click', function(){});
+        a1btn.setAttribute("id", "option3");
+        a3btn.addEventListener('click', function(){
+            if(questions[i].correctAnswer == 'option3') {
+                playerScore++; 
+                questionNumber++;
+            } else {
+                questionNumber++;
+                timeLeft -= 5;
+            }
+        });
         listE1.appendChild(a4btn);
-        a4btn.textContent = questions[i].option4;
+        a4btn.innerHTML = questions[i].option4;
         a4btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
-        a4btn.addEventListener('click', function(){});
+        a1btn.setAttribute("id", "option4");
+        a4btn.addEventListener('click', function(){
+            if(questions[i].correctAnswer == 'option4') {
+                playerScore++; 
+                questionNumber++;
+            } else {
+                questionNumber++;
+                timeLeft -= 5;
+            }
+        });
 
         // h1E1.textContent = questions[i].question;
         // a1btn.textContent = questions[i].option1;
@@ -152,22 +180,24 @@ const questionLayout = () => {
     }
 
 }
+
+
+
+
 const startQuiz = () => {
-    let playerScore = 0;
+    h1E1.setAttribute("style", "display:none");
+    h3E1.setAttribute("style", "display:none");
+    btn1.setAttribute("style", "display:none");
+    playerScore = 0;
+    questionNumber = 0; 
+    timeLeft = 75; 
     questionLayout(); 
-    header.setAttribute("style", "display:flex, flex-direction:row, width:100%")
-    header.appendChild(highScores);
-    header.appendChild(timer1);
-    
-    h1E1.setAttribute("style", "margin:auto; width:50%; text-align:center;");
-
-    
-
-    
-
+    startCountdown();
+    console.log(playerScore);
     
 }
 
+console.log(playerScore);
 
 
 
