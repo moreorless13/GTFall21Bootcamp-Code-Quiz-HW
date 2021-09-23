@@ -180,12 +180,15 @@ const checkAnswer = (questionNumber, playerScore) => {
 
 
 const startQuiz = () => {
-    h1E1.setAttribute("style", "display:none");
-    h3E1.setAttribute("style", "display:none");
-    btn1.setAttribute("style", "display:none");
     playerScore = 0;
     questionNumber = 0; 
     timeLeft = 75; 
+    h1E1.setAttribute("style", "display:none");
+    h3E1.setAttribute("style", "display:none");
+    btn1.setAttribute("style", "display:none");
+    body.appendChild(header);
+    header.appendChild(timer1);
+    timer1.innerHTML = "Time left: " + timeLeft;
     questionLayout(); 
     startCountdown();
     console.log(playerScore);
