@@ -36,6 +36,7 @@ btn1.addEventListener('click', function () {
 });
 var playerScore = 0;
 var questionNumber = 0; 
+var timeLeft;
 
 // defining the quiz questions
 const questions = [
@@ -114,7 +115,7 @@ const startCountdown = () => {
 const questionLayout = () => {
     // body.appendChild(listE1);
 
-    for (let i = 0; i <= 0; i++) {
+    for (let i = questionNumber; i <= 0; i++) {
         
         body.appendChild(listE1);
         listE1.setAttribute("style", "display:flex; flex-direction:column; justify-content:center; text-align:center; margin:25%, font-weight:bold, font-size: 24px;");
@@ -124,52 +125,28 @@ const questionLayout = () => {
         a1btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
         a1btn.setAttribute("id", "option1");
         a1btn.addEventListener('click', function(){
-            if(questions[i].correctAnswer == 'option1') {
-                playerScore++; 
-                questionNumber++;
-            } else {
-                questionNumber++;
-                timeLeft -= 5;
-            }
+            checkAnswer();
         });
         listE1.appendChild(a2btn);
         a2btn.innerHTML = questions[i].option2;
         a2btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
         a1btn.setAttribute("id", "option2");
         a2btn.addEventListener('click', function(){
-            if(questions[i].correctAnswer == 'option2') {
-                playerScore++; 
-                questionNumber++;
-            } else {
-                questionNumber++;
-                timeLeft -= 5;
-            }
+            checkAnswer();
         });
         listE1.appendChild(a3btn);
         a3btn.innerHTML = questions[i].option3;
         a3btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
         a1btn.setAttribute("id", "option3");
         a3btn.addEventListener('click', function(){
-            if(questions[i].correctAnswer == 'option3') {
-                playerScore++; 
-                questionNumber++;
-            } else {
-                questionNumber++;
-                timeLeft -= 5;
-            }
+            checkAnswer();
         });
         listE1.appendChild(a4btn);
         a4btn.innerHTML = questions[i].option4;
         a4btn.setAttribute("style", "list-style-type:none, margin:auto; display:flex; flex-direction:row; justify-content:center; background-color:purple; color:white; border-radius:8px; text-align:center;");
         a1btn.setAttribute("id", "option4");
         a4btn.addEventListener('click', function(){
-            if(questions[i].correctAnswer == 'option4') {
-                playerScore++; 
-                questionNumber++;
-            } else {
-                questionNumber++;
-                timeLeft -= 5;
-            }
+            checkAnswer();
         });
 
         // h1E1.textContent = questions[i].question;
@@ -179,6 +156,24 @@ const questionLayout = () => {
         // a4btn.textContent = questions[i].option4;
     }
 
+}
+
+const checkAnswer = (questionNumber, playerScore) => {
+    for (var i = questionNumber; i <= questions.length; i++)
+    var currentQuestionAnswer = questionNumber[i].correctAnswer;
+    var option1 = document.getElementById('option1');
+    var option2 = document.getElementById('option2');
+    var option3 = document.getElementById('option3');
+    var option4 = document.getElementById('option4');
+
+    if((currentQuestionAnswer == option1 || currentQuestionAnswer == option2 || currentQuestionAnswer == option3 || currentQuestionAnswer == option4) && timeLeft > 0){
+        playerScore++;
+        questionNumber++;
+    } else {
+        questionNumber++;
+
+    }
+    
 }
 
 
