@@ -88,8 +88,17 @@ console.log(questions);
 // appending elements to second page
 
 const endQuiz = () => {
-
-
+    body.appendChild(h2E1);
+    h2E1.textContent = "You got: " + playerScore + "correct!"; 
+    let finalScore = localStorage.getItem("playerScore");
+    let playerInitials = window.prompt('Enter your initials', '');
+    const players = [
+        {
+            playerInitials: playerInitials,
+            finalScore: finalScore
+        }
+    ];
+    localStorage.setItem("High Scores: ", highScores);
 }
 // define the countdown
 const startCountdown = () => {
@@ -168,8 +177,10 @@ const checkAnswer = (questionNumber, playerScore) => {
 
     if((currentQuestionAnswer == option1 || currentQuestionAnswer == option2 || currentQuestionAnswer == option3 || currentQuestionAnswer == option4) && timeLeft > 0){
         playerScore++;
+        localStorage.setItem("playerScore", playerScore);
         questionNumber++;
     } else {
+        localStorage.setItem("playerScore", playerScore);
         questionNumber++;
 
     }
